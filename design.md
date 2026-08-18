@@ -68,11 +68,9 @@ Semua tema mempertahankan neutral yang sama agar komponen konsisten.
 
 | Produk | Primary | Accent | Background | Surface | Foreground |
 |---|---:|---:|---:|---:|---:|
-| Laundry | `#126B5A` | `#BDEEDC` | `#F4F7F5` | `#FFFFFF` | `#10201C` |
-| Rental | `#1E4E8C` | `#C9DDF7` | `#F4F6F9` | `#FFFFFF` | `#121B26` |
-| Lapangan | `#177245` | `#C8E88B` | `#F5F7F2` | `#FFFFFF` | `#142019` |
+| Semua layanan | `#0000F2` | `#DFE1FF` | `#F7F7FB` | `#FFFFFF` | `#111225` |
 
-Tema tidak boleh mengubah spacing, radius, ukuran komponen, atau hierarki CTA.
+Laundry, rental, dan lapangan memakai palet biru modern yang sama. Perbedaan produk dibangun melalui konten, ikon, foto, serta istilah—bukan mengganti warna brand. Tema tidak boleh mengubah spacing, radius, ukuran komponen, atau hierarki CTA.
 
 ### Tipografi
 
@@ -114,10 +112,11 @@ Gunakan skala: `0, 4, 8, 12, 16, 20, 24, 32, 40, 48, 64px`.
 
 | Token | Nilai | Penggunaan |
 |---|---:|---|
-| `radius-sm` | 8px | Badge, chip kecil |
-| `radius-md` | 12px | Input, button, card ringkas |
-| `radius-lg` | 16px | Card utama, dialog |
-| `radius-xl` | 24px | Bottom sheet |
+| `radius-sm` | 6px | Badge, chip kecil |
+| `radius-md` | 10px | Input, button, card ringkas |
+| `radius-lg` | 12px | Card utama, dropdown, popover |
+| `radius-xl` | 16px | Dialog dan panel besar |
+| `radius-sheet` | 24px | Hanya sudut atas bottom sheet |
 | `radius-full` | 999px | Avatar, status dot, pill |
 
 - Border standar: 1px solid `border`.
@@ -163,7 +162,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
-  themeColor: '#f4f7f5',
+  themeColor: '#f7f7fb',
 }
 ```
 
@@ -847,6 +846,14 @@ app/
 - Item belum dibaca memakai dot `primary`; jangan bergantung pada warna saja—sertakan waktu dan isi yang jelas.
 - Toast success menghilang otomatis; error persisten sampai ditutup atau memiliki aksi retry.
 - Toast tidak dipakai untuk informasi yang harus tetap dibaca. Gunakan Alert inline untuk kondisi tersebut.
+
+### Dropdown dan date picker
+
+- Gunakan `Select` untuk memilih satu nilai dari daftar tetap; gunakan `DropdownMenu` untuk kumpulan aksi pada objek.
+- Setiap dropdown memiliki trigger berlabel, group, label group bila konteks diperlukan, dan item destruktif ditempatkan setelah separator.
+- Date picker memakai tombol outline yang menampilkan tanggal terformat, lalu kalender di dalam popover.
+- Kalender harus mendukung navigasi keyboard, locale Indonesia, status selected, today, disabled, dan focus ring.
+- Pada form mobile, popover kalender tidak boleh lebih lebar dari viewport dan harus menutup setelah tanggal dipilih.
 
 ### Tambah dan edit data
 
