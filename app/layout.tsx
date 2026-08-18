@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import { Toaster } from '@/components/ui/sonner'
 import './globals.css'
 
 const geistSans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="id" className="bg-app-backdrop">
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
         {children}
+        <Toaster position="top-center" richColors />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

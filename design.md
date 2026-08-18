@@ -824,6 +824,69 @@ app/
 
 ---
 
-## 11. Definition of done
+## 11. Pola interaksi lengkap
+
+### Bottom sheet
+
+- Pakai sheet dari bawah untuk tambah/edit data, filter, pilihan kompleks, dan detail kontekstual.
+- Tinggi maksimal `92dvh`; konten internal dapat di-scroll, header dan footer aksi tetap terlihat.
+- Radius hanya di sudut atas: `rounded-t-3xl`; sediakan drag handle visual dan judul yang terbaca screen reader.
+- Tombol batal di kiri dan aksi primer di kanan. Tambahkan safe-area pada padding bawah.
+- Jangan gunakan bottom sheet untuk keputusan destruktif singkat; gunakan confirmation dialog.
+
+### Dialog konfirmasi
+
+- Gunakan dialog tengah untuk tindakan irreversible: hapus, batalkan transaksi, reset, atau keluar tanpa menyimpan.
+- Judul berupa pertanyaan spesifik, deskripsi menyebut objek serta konsekuensinya.
+- Aksi aman memakai outline; aksi berbahaya memakai destructive dan tidak boleh menjadi default keyboard focus.
+- Maksimal dua aksi utama. Dialog harus dapat ditutup dengan Escape kecuali proses kritis sedang berjalan.
+
+### Notifikasi dan toast
+
+- Notification center dibuka sebagai bottom sheet dan diurutkan terbaru ke terlama.
+- Item belum dibaca memakai dot `primary`; jangan bergantung pada warna saja—sertakan waktu dan isi yang jelas.
+- Toast success menghilang otomatis; error persisten sampai ditutup atau memiliki aksi retry.
+- Toast tidak dipakai untuk informasi yang harus tetap dibaca. Gunakan Alert inline untuk kondisi tersebut.
+
+### Tambah dan edit data
+
+- Form tambah data dibuka dari CTA `Tambah data` dan menggunakan bottom sheet.
+- Susunan wajib: judul, deskripsi, field utama, field opsional, lalu footer aksi.
+- Label tidak boleh diganti placeholder. Field required ditandai secara tekstual dan error muncul dekat field.
+- Setelah submit sukses: tutup sheet, update daftar, fokus kembali ke pemicu, lalu tampilkan toast.
+- Saat submit: disable tombol, tampilkan spinner tanpa mengubah lebar tombol, dan cegah submit ganda.
+
+### Tabel mobile
+
+- Tabel mobile hanya mempertahankan dua kolom visual utama: identitas data dan status/aksi.
+- ID, layanan, harga, dan metadata dirangkum vertikal di sel identitas.
+- Search dan filter berada tepat di atas tabel. Overflow horizontal hanya menjadi pilihan terakhir.
+- Aksi tiap baris memakai menu icon-only dengan accessible name; seluruh baris tidak otomatis clickable.
+- Empty, loading, error, pagination/load-more, dan hasil pencarian kosong harus tersedia.
+
+### System states
+
+- Skeleton harus meniru ukuran konten akhir dan tidak dipakai lebih dari struktur yang benar-benar akan muncul.
+- Empty state berisi ikon, judul, satu kalimat penjelas, dan maksimal satu CTA primer.
+- Error inline memakai Alert dan menyediakan retry bila proses dapat diulang.
+- Disabled mengurangi emphasis tetapi tetap memiliki kontras terbaca; jelaskan alasan disabled bila tidak jelas.
+
+### Recipe Tailwind CSS v4
+
+```tsx
+<SheetContent side="bottom" className="mx-auto max-h-[92dvh] max-w-[430px] rounded-t-3xl px-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))]" />
+
+<DialogContent className="max-w-[calc(100%-2rem)] rounded-2xl" />
+
+<div className="overflow-hidden rounded-xl border">
+  <Table>{/* dua kolom prioritas */}</Table>
+</div>
+
+<nav className="fixed inset-x-0 bottom-0 mx-auto max-w-[430px] border-t bg-background/95 backdrop-blur" />
+```
+
+---
+
+## 12. Definition of done
 
 Sebuah layar dianggap sesuai sistem bila dapat dipakai pada 320–430px, tetap berupa kanvas mobile saat dibuka di desktop, memiliki satu aksi utama yang jelas, memakai token semantik, memenuhi target sentuh dan kontras, serta memiliki state loading, empty, error, disabled, dan focus yang relevan. Variasi laundry, rental, dan lapangan harus dapat dicapai dengan mengganti tema, istilah, data, dan pola booking tanpa memodifikasi primitive UI.
